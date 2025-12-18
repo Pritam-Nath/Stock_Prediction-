@@ -40,9 +40,13 @@ stock = st.text_input("Enter Stock Symbol:", "GOOG")
 end = datetime.now()
 start = datetime(end.year - 20, end.month, end.day)
 
+
 data = yf.download(stock, start, end)
+data = data.sort_index(ascending=False)
+
 st.subheader("Stock Data")
 st.write(data)
+
 
 # ========= MOVING AVERAGES =========
 def plot_graph(figsize, values, full_data, extra_data=0, extra_dataset=None):
@@ -100,8 +104,12 @@ prediction_df = pd.DataFrame({
     "Predicted": pred[:, 1]
 }, index=df.index)
 
+
+
 st.subheader("Actual vs Predicted Close Price")
+prediction_df = prediction_df.sort_index(ascending=False)
 st.write(prediction_df)
+
 
 fig = plt.figure(figsize=(15, 6))
 plt.plot(prediction_df["Actual"], label="Actual", color="blue")
