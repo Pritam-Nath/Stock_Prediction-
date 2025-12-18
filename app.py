@@ -9,7 +9,7 @@ import joblib
 import base64
 from datetime import datetime
 
-st.title("Stock Price Predictor App (Scikit-Learn Version)")
+st.title("Stock Price Predictor App")
 
 # ====== Background Image =======
 def get_base64(file_path):
@@ -42,7 +42,7 @@ start = datetime(end.year - 20, end.month, end.day)
 
 data = yf.download(stock, start, end)
 st.subheader("Stock Data")
-st.write(data)
+st.write(data.tail())
 
 # ========= MOVING AVERAGES =========
 def plot_graph(figsize, values, full_data, extra_data=0, extra_dataset=None):
@@ -101,7 +101,7 @@ prediction_df = pd.DataFrame({
 }, index=df.index)
 
 st.subheader("Actual vs Predicted Close Price")
-st.write(prediction_df)
+st.write(prediction_df.tail())
 
 fig = plt.figure(figsize=(15, 6))
 plt.plot(prediction_df["Actual"], label="Actual", color="blue")
